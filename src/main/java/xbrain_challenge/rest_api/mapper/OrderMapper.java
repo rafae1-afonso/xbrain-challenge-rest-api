@@ -7,6 +7,7 @@ import xbrain_challenge.rest_api.dto.OrderDto;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
+
     @Mapping(target = "customerCode", source = "customerCode")
     @Mapping(target = "totalValue", source = "totalValue")
     @Mapping(target = "deliveryAddress", source = "deliveryAddress")

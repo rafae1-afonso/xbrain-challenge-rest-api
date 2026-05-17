@@ -7,6 +7,7 @@ import xbrain_challenge.rest_api.dto.DeliveryDto;
 
 @Mapper(componentModel = "spring")
 public interface DeliveryMapper {
+
     @Mapping(target = "deliveryAddress", source = "deliveryAddress")
     @Mapping(target = "order", source = "order")
     DeliveryEntity toEntity(DeliveryDto orderDto);

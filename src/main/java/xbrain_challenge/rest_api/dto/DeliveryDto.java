@@ -2,11 +2,9 @@ package xbrain_challenge.rest_api.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import xbrain_challenge.rest_api.database.entity.OrderEntity;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,13 +14,9 @@ import java.time.LocalDateTime;
 @Builder
 public class DeliveryDto {
 
-    @NotBlank
-    @Column(nullable = false)
+    @NotBlank(message = "A delivery must contain an address")
+    @NotNull
     private String deliveryAddress;
-
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
 
     @OneToOne
     @JoinColumn(name = "order_id")

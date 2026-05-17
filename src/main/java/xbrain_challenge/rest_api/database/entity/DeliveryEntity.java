@@ -2,6 +2,7 @@ package xbrain_challenge.rest_api.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +26,7 @@ public class DeliveryEntity {
     @Column(nullable = false)
     private String deliveryAddress;
 
-    @Column(nullable = false)
+    @Column(updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 }

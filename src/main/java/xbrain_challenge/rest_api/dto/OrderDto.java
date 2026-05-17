@@ -1,39 +1,38 @@
-package xbrain_challenge.rest_api.database.entity;
+package xbrain_challenge.rest_api.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedBy;
+import xbrain_challenge.rest_api.database.entity.ProductEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "table_order")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Builder
-public class OrderEntity {
+public class OrderDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String customerCode;
 
+    @NotBlank
     @Column(nullable = false)
     private BigDecimal totalValue;
 
+    @NotBlank
     @Column(nullable = false)
     private String deliveryAddress;
 
-    @Column(updatable = false)
-    @CreationTimestamp
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

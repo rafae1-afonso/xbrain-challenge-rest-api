@@ -3,6 +3,7 @@ package xbrain_challenge.rest_api.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import xbrain_challenge.rest_api.database.object.ProductObject;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String customerCode;
 
     @Column(nullable = false)
@@ -37,6 +38,7 @@ public class OrderEntity {
     private LocalDateTime createdAt;
 
     @ElementCollection
-    @CollectionTable(name = "order_product_codes", joinColumns = @JoinColumn(name = "order_id"))
-    private List<String> products = new ArrayList<>();
+    @CollectionTable(name = "table_order_products", joinColumns = @JoinColumn(name = "order_id"))
+    @Column
+    private List<ProductObject> products = new ArrayList<>();
 }

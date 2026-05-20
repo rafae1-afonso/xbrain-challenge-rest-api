@@ -1,8 +1,10 @@
 package xbrain_challenge.rest_api.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 import xbrain_challenge.rest_api.database.entity.DeliveryEntity;
+import xbrain_challenge.rest_api.database.entity.OrderEntity;
 import xbrain_challenge.rest_api.database.repository.IDeliveryRepository;
 import xbrain_challenge.rest_api.dto.DeliveryDto;
 import xbrain_challenge.rest_api.mapper.DeliveryMapper;
@@ -27,5 +29,12 @@ public class DeliveryService {
         deliveryRepository.save(newDeliveryEntity);
 
         return newDeliveryEntity;
+    }
+
+    public DeliveryDto buildDeliveryDtoFromMessage(Message<OrderEntity> message) {
+        return DeliveryDto.builder()
+                .order_id(message.getPayload().getId())
+                .deliveryAddress(message.getPayload().getDeliveryAddress())
+                .build();
     }
 }

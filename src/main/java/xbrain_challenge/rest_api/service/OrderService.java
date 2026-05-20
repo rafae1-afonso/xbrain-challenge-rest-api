@@ -8,6 +8,7 @@ import xbrain_challenge.rest_api.dto.OrderDto;
 import xbrain_challenge.rest_api.mapper.OrderMapper;
 import xbrain_challenge.rest_api.producer.OrderQueueProducer;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -18,6 +19,12 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderQueueProducer orderQueueProducer;
 
+    private BigDecimal calculateTotalOrderValue(OrderDto orderDto) {
+        return orderDto.getProducts().stream().map(order -> order.getPrice()
+                .multiply(new BigDecimal(order.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     public List<OrderEntity> listAll() {
         return orderRepository.findAll();
     }
@@ -25,6 +32,8 @@ public class OrderService {
     public OrderEntity create(OrderDto orderDto) {
 
         OrderEntity newOrderEntity = mapper.toEntity(orderDto);
+
+        newOrderEntity.setTotalValue(calculateTotalOrderValue(orderDto));
 
         orderRepository.save(newOrderEntity);
 

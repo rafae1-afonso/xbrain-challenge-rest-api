@@ -9,7 +9,6 @@ import xbrain_challenge.rest_api.dto.OrderDto;
 public interface OrderMapper {
 
     @Mapping(target = "customerCode", source = "customerCode")
-    @Mapping(target = "totalValue", source = "totalValue")
     @Mapping(target = "deliveryAddress", source = "deliveryAddress")
     @Mapping(target = "products", expression = "java(orderDto.getProducts())")
     OrderEntity toEntity(OrderDto orderDto);

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "table_delivery")
@@ -16,12 +17,11 @@ import java.time.LocalDateTime;
 public class DeliveryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    @Column
+    private UUID order_id;
 
     @Column(nullable = false)
     private String deliveryAddress;

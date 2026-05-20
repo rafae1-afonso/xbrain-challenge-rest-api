@@ -9,6 +9,6 @@ import xbrain_challenge.rest_api.dto.DeliveryDto;
 public interface DeliveryMapper {
 
     @Mapping(target = "deliveryAddress", source = "deliveryAddress")
-    @Mapping(target = "order", source = "order")
+    @Mapping(target = "order_id", source = "order_id")
     DeliveryEntity toEntity(DeliveryDto orderDto);
 }

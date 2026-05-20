@@ -13,8 +13,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console:
       enabled: true
       path: /h2-console
+      settings:
+        web-allow-others: true
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    password: guest
+    username: guest

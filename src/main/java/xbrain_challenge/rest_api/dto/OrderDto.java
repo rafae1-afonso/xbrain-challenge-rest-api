@@ -1,11 +1,9 @@
 package xbrain_challenge.rest_api.dto;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ElementCollection;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import xbrain_challenge.rest_api.database.entity.ProductEntity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ public class OrderDto {
 
     @NotBlank(message = "The order needs a customer code.")
     @Column(nullable = false, unique = true)
+    @Pattern(regexp = "^C-\\d{3}$", message = "The customer code must match the format: C-000.")
     private String customerCode;
 
     @Positive(message = "The value must be positive.")
@@ -31,7 +30,7 @@ public class OrderDto {
     @Column(nullable = false)
     private String deliveryAddress;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Size(min = 1, message = "The list must contain at least one product.")
-    private List<ProductEntity> products = new ArrayList<>();
+    @ElementCollection
+    @Size(min = 1, message = "The list must contain at least one product code.")
+    private List<@Pattern(regexp = "^P-\\d{3}$", message = "The product code must match the format: P-000.") String> products = new ArrayList<>();
 }

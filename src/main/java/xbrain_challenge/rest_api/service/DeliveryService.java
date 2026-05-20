@@ -22,9 +22,10 @@ public class DeliveryService {
 
     public DeliveryEntity create(DeliveryDto deliveryDto) {
 
-        DeliveryEntity newDelivery = mapper.toEntity(deliveryDto);
-        deliveryRepository.save(newDelivery);
+        DeliveryEntity newDeliveryEntity = mapper.toEntity(deliveryDto);
 
-        return newDelivery;
+        deliveryRepository.save(newDeliveryEntity);
+
+        return newDeliveryEntity;
     }
 }

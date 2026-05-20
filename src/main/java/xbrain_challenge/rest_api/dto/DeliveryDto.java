@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import xbrain_challenge.rest_api.database.entity.OrderEntity;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,11 +14,11 @@ import xbrain_challenge.rest_api.database.entity.OrderEntity;
 @Builder
 public class DeliveryDto {
 
-    @NotBlank(message = "A delivery must contain an address")
+    @org.hibernate.validator.constraints.UUID(message = "The delivery needs an order_id")
+    @Column
+    private UUID order_id;
+
+    @NotBlank(message = "A delivery must contain an address.")
     @NotNull
     private String deliveryAddress;
-
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
 }

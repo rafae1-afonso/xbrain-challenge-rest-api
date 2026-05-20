@@ -6,6 +6,7 @@ import xbrain_challenge.rest_api.database.entity.OrderEntity;
 import xbrain_challenge.rest_api.database.repository.IOrderRepository;
 import xbrain_challenge.rest_api.dto.OrderDto;
 import xbrain_challenge.rest_api.mapper.OrderMapper;
+import xbrain_challenge.rest_api.producer.OrderQueueProducer;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class OrderService {
 
     private final IOrderRepository orderRepository;
     private final OrderMapper mapper;
+    private final OrderQueueProducer orderQueueProducer;
 
     public List<OrderEntity> listAll() {
         return orderRepository.findAll();
@@ -22,9 +24,12 @@ public class OrderService {
 
     public OrderEntity create(OrderDto orderDto) {
 
-        OrderEntity newOrder = mapper.toEntity(orderDto);
-        orderRepository.save(newOrder);
+        OrderEntity newOrderEntity = mapper.toEntity(orderDto);
 
-        return newOrder;
+        orderRepository.save(newOrderEntity);
+
+        orderQueueProducer.sendToQueue(newOrderEntity);
+
+        return newOrderEntity;
     }
 }

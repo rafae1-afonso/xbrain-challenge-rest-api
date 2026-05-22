@@ -7,7 +7,7 @@
 ```
 git clone https://github.com/rafae1-afonso/xbrain-challenge-rest-api
 ```
-### 2. Mude o diretório do projeto
+### 2. Mude para o diretório do projeto
 
 ```
 cd xbrain-challenge-rest-api

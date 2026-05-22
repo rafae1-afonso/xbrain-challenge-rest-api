@@ -74,10 +74,10 @@ localhost:8080/v1/pedidos - Criar pedido
 
 A API foi modelada utilizando o padrão arquitetural em camadas, separando de forma clara as responsabilidades e garantindo o isolamento das regras de negócio contra detalhes de infraestrutura.
 
-*   O cliente envia uma requisição POST `/api/pedidos` contendo o código do cliente, lista de produtos, valor total e endereço.
+*   O cliente envia uma requisição POST `/v1/pedidos` contendo o código do cliente, lista de produtos e endereço. O valor total é calculado através dos preços dos produtos colocados multiplicados por sua quantidade.
 *   O OrderController recebe os dados, aciona a camada de validação e repassa ao OrderService.
 *   O pedido é persistido no banco de dados em memória H2.
-*   Imediatamente após o sucesso da persistência, um evento contendo os dados básicos do pedido é publicado na fila `restapi-order-queue` do RabbitMQ através do PedidoPublisher.
+*   Imediatamente após o sucesso da persistência, um evento contendo os dados básicos do pedido é publicado na fila `restapi-order-queue` do RabbitMQ.
 
 ## Decisões Técnicas Tomadas
 

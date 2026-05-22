@@ -1,5 +1,5 @@
 db.sql.mv.db
-README.md
+db.sql.trace.db
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

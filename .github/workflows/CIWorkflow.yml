@@ -27,4 +27,4 @@ jobs:
       run: mvn clean test
       
     - name: Docker Compose Build
-      run: docker-compose up --build
+      run: docker compose up --build
